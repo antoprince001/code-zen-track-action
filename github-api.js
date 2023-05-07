@@ -11,7 +11,7 @@ async function fetchRecentActivities(username, token) {
                 totalCommitContributions
                 totalIssueContributions
                 totalPullRequestContributions	
-              totalPullRequestReviewContributions      	
+                totalPullRequestReviewContributions      	
               
         }
         issues(last: 3){
@@ -80,6 +80,6 @@ async function fetchRecentActivities(username, token) {
     console.log(response.data)
     return response.data;
   }
-  const token = '';
-  const username = 'antoprince001'
+  // const token = '';
+  // const username = 'antoprince001'
   fetchRecentActivities(username, token)

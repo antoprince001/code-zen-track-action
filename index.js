@@ -19,3 +19,28 @@ async function run() {
 }
 
 run();
+
+/*
+Inputs:
+  Github API
+    - issues
+    - repositories
+    - commits
+    - contributions
+    - pull requests
+  
+  Prompt Input
+    - Persona (x from y)
+    - Input from Github API
+    - Action (Judge, Joke, Quote, one liner, advice, reminder)
+    - Rules (Sarcastic, Jovial, Friendly)
+    - Output (words,format, )
+
+  Github Action
+    - contributionFromNdays
+    - 
+
+
+Output:
+Prompt
+*/
