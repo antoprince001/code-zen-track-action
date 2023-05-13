@@ -1,7 +1,6 @@
 const core = require('@actions/core');
-const wait = require('./wait');
-const generatePrompt = require('prompt')
-const fetchGPTResponse = require('gpt-api')
+const generatePrompt = require('./prompt')
+const gpt = require('./gpt-api')
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -14,7 +13,7 @@ async function run() {
     const outputLength = core.getInput('output-length');
     const contributionPeriod = core.getInput('contribution-period');
 
-    let prompt = generatePrompt(
+    let prompt = await generatePrompt(
       persona,
       githubInput,
       action,
@@ -24,7 +23,7 @@ async function run() {
 
     core.info(`Engineering the right prompt ...`);
     
-    let gptResponse = fetchGPTResponse(promptText)(
+    let gptResponse = await fetchGPTResponse(promptText)(
       persona,
       githubInput,
       action,
@@ -33,17 +32,13 @@ async function run() {
     );
 
     core.info(`Engineering the right prompt ...`);
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
 
-    core.setOutput('time', new Date().toTimeString());
+    core.setOutput('response', gptResponse);
   } catch (error) {
     core.setFailed(error.message);
   }
 }
 
-run();
 
 /*
 Inputs:

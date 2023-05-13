@@ -7,7 +7,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-async function fetchGPTResponse(promptText) {
+module.exports = async function fetchGPTResponse(promptText) {
     const response = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: promptText,
@@ -18,15 +18,12 @@ async function fetchGPTResponse(promptText) {
     presence_penalty: 0.6,
     stop: [" Human:", " AI:"],
     });
-    // console.log(response.data)
-    // console.log(response.data.choices)
-    // console.log(response.data.choices[0].text.trim())
+
     if(response && response.data && response.data.choices){
         console.log(response.data.choices[0].text.trim())
         return response.data.choices[0].text.trim()
     }
     else{
-        console.log("here2")
         return "Custom 404 error message"
     }
 }
