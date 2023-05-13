@@ -35,7 +35,7 @@ function getQuery(githubInput, xDaysAgo){
 }
 module.exports = async function fetchGithubActivities(username) {
     const xDaysAgo = new Date(new Date() - 5 * 24 * 60 * 60 * 1000).toISOString();
-    const token = process.env.GITHUB_API_TOKEN;
+    const token = process.env.API_GITHUB_TOKEN;
 
     const query = `
     query { 
