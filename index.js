@@ -14,7 +14,7 @@ async function run() {
     const outputLength = core.getInput('output-length');
     const contributionPeriod = core.getInput('contribution-period');
 
-    let prompt = await generatePrompt(
+    let promptText = await generatePrompt(
       persona,
       githubInput,
       action,
