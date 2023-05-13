@@ -15707,7 +15707,6 @@ async function run() {
     );
 
     core.info(`Response ...`);
-
     core.setOutput('response', gptResponse);
   } catch (error) {
     core.setFailed(error.message);
