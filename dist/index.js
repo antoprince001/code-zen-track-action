@@ -15674,7 +15674,7 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(2186);
 const generatePrompt = __nccwpck_require__(2814)
-const gpt = __nccwpck_require__(4983)
+const fetchGPTResponse = __nccwpck_require__(4983)
 
 // most @actions toolkit packages have async methods
 async function run() {

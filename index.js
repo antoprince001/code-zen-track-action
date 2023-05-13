@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const generatePrompt = require('./prompt')
-const gpt = require('./gpt-api')
+const fetchGPTResponse = require('./gpt-api')
 
 // most @actions toolkit packages have async methods
 async function run() {
