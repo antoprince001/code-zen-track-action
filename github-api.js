@@ -1,11 +1,38 @@
+require('dotenv').config();
 const axios = require('axios');
+const token = process.env.GITHUB_API_TOKEN;
 
-async function fetchRecentActivities(username, token) {
-    const fiveDaysAgo = new Date(new Date() - 5 * 24 * 60 * 60 * 1000).toISOString();
-    console.log(username+token)
-    const query = `
+function getQuery(githubInput, xDaysAgo){
+  let queries = {
+    "issues" : `
     query { 
       user(login: "antoprince001") { 
+        bio
+        contributionsCollection(from : "${xDaysAgo}"){
+                totalCommitContributions
+                totalIssueContributions
+                totalPullRequestContributions	
+                totalPullRequestReviewContributions      	
+              
+        }
+      }
+    }
+    `,
+    "repos" : `
+    `,
+    "commits" : `
+    `,
+    "prs" : `
+    `,
+    "contributions" : `
+    `
+  }
+}
+async function fetchGithubActivities(username) {
+    const xDaysAgo = new Date(new Date() - 5 * 24 * 60 * 60 * 1000).toISOString();
+    const query = `
+    query { 
+      user(login: ${username}) { 
         bio
         contributionsCollection(from : "2023-04-30T08:55:09.282Z"){
                 totalCommitContributions
@@ -13,54 +40,6 @@ async function fetchRecentActivities(username, token) {
                 totalPullRequestContributions	
                 totalPullRequestReviewContributions      	
               
-        }
-        issues(last: 3){
-          nodes {
-                  title
-                  comments(last: 5) {
-                    edges {
-                      node {
-                        bodyText
-                      }
-                    }
-                  }
-                }
-        }
-        repositories(last: 3){
-          nodes {
-                  name
-                        languages(last: 3) {
-                          edges {
-                            node {
-                              name
-                            }
-                          }
-                        }
-                        description
-                      labels(last: 3) {
-                        edges {
-                          node {
-                            name
-                          }
-                        }
-                      }
-                        repositoryTopics(last: 3) {
-                          edges {
-                            node {
-                              topic {
-                                id
-                              }
-                            }
-                          }
-                        }
-                        stargazerCount
-                        
-                }
-        }
-        pullRequests(last: 3){
-          nodes{
-            title
-          }
         }
       }
     }
@@ -80,6 +59,5 @@ async function fetchRecentActivities(username, token) {
     console.log(response.data)
     return response.data;
   }
-  // const token = '';
-  // const username = 'antoprince001'
-  fetchRecentActivities(username, token)
+
+  fetchGithubActivities(username)

@@ -1,10 +1,30 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'GPT-Code-Zen-Action'
+description: 'GPT responses based on Github Activity'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
-    required: true
-    default: '1000'
+  persona:
+    description: 'Persona that the GPT should take to respond'
+    required: false
+    default: 'Batman DC Comics'
+  github-input:  # id of input
+    description: 'Type of data to be fetched from Github API (issues, repos, commits, PRs, contributions)'
+    required: false
+    default: 'contributions'
+  action:  # id of input
+    description: 'Response Action of GPT could be a Joke, Quote, to Judge '
+    required: false
+    default: 'advice'
+  tone:  # id of input
+    description: 'Set the tone of response from GPT (Sarcastic, Funny, Jovial)'
+    required: false
+    default: 'Friendly'
+  contribution-period:
+    description: 'Set the github contribution period to be considered in days'
+    required: false
+    default: 3
+  output-length:  # id of input
+    description: 'Set length of the output response less than 128'
+    required: false
+    default: '25'
 outputs:
   time: # output will be available to future steps
     description: 'The current time after waiting'
