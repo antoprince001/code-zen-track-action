@@ -1,20 +1,22 @@
 const core = require('@actions/core');
-const generatePrompt = require('./prompt')
-const fetchGPTResponse = require('./gpt-api')
+const github = require('@actions/github');
+const { fetchGPTResponse } = require('./src/gptapi')
+const generatePrompt = require('./src/prompt')
 
 // most @actions toolkit packages have async methods
 async function run() {
   try {
     core.info(`Setting up ...`);
-    core.setOutput('test', "testone");
     const persona = core.getInput('persona');
     const githubInput = core.getInput('github-input');
     const action = core.getInput('action');
     const tone = core.getInput('tone');
     const outputLength = core.getInput('output-length');
     const contributionPeriod = core.getInput('contribution-period');
+    const username = github.context.payload.pusher.name;
 
     let promptText = await generatePrompt(
+      username,
       persona,
       githubInput,
       action,
@@ -24,13 +26,7 @@ async function run() {
 
     core.info(`Engineering the right prompt ...`);
     
-    let gptResponse = await fetchGPTResponse(promptText)(
-      persona,
-      githubInput,
-      action,
-      tone,
-      outputLength
-    );
+    let gptResponse = await fetchGPTResponse(promptText);
 
     core.info(`Response ...`);
     core.setOutput('response', gptResponse);
