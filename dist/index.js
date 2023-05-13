@@ -15680,6 +15680,7 @@ const gpt = __nccwpck_require__(4983)
 async function run() {
   try {
     core.info(`Setting up ...`);
+    core.setOutput('test', "testone");
     const persona = core.getInput('persona');
     const githubInput = core.getInput('github-input');
     const action = core.getInput('action');
@@ -15712,7 +15713,7 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-
+run();
 
 /*
 Inputs:

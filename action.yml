@@ -27,7 +27,9 @@ inputs:
     default: '25'
 outputs:
   response: # output will be available to future steps
-    description: 'The response '
+    description: 'The response'
+  test:
+    description: 'output'
 runs:
   using: 'node16'
   main: 'dist/index.js'
