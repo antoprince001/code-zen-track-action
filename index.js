@@ -5,7 +5,7 @@ const gpt = require('./gpt-api')
 // most @actions toolkit packages have async methods
 async function run() {
   try {
-
+    core.info(`Setting up ...`);
     const persona = core.getInput('persona');
     const githubInput = core.getInput('github-input');
     const action = core.getInput('action');
@@ -31,7 +31,7 @@ async function run() {
       outputLength
     );
 
-    core.info(`Engineering the right prompt ...`);
+    core.info(`Response ...`);
 
     core.setOutput('response', gptResponse);
   } catch (error) {
