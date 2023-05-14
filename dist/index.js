@@ -18116,7 +18116,6 @@ async function fetchGPTResponse(promptText) {
      });
 
      if (response && response.data && response.data.choices) {
-          console.log(response.data.choices[0].text.trim())
           return response.data.choices[0].text.trim()
      }
      else {
@@ -22637,11 +22636,13 @@ async function run() {
     );
 
     core.info(`Engineering the right prompt ...`);
-    
+    core.setOutput('prompt', promptText);
+    core.info(`${promptText}`);
     let gptResponse = await fetchGPTResponse(promptText);
 
     core.info(`Response ...`);
     core.setOutput('response', gptResponse);
+    core.info(`${gptResponse}`);
   } catch (error) {
     core.setFailed(error.message);
   }

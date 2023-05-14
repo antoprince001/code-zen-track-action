@@ -22,7 +22,6 @@ async function fetchGPTResponse(promptText) {
      });
 
      if (response && response.data && response.data.choices) {
-          console.log(response.data.choices[0].text.trim())
           return response.data.choices[0].text.trim()
      }
      else {
