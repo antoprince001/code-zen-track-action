@@ -18049,15 +18049,15 @@ function getQuery(githubInput, xDaysAgo){
     `
   }
 }
-module.exports = async function fetchGithubActivities(username) {
-    const xDaysAgo = new Date(new Date() - 5 * 24 * 60 * 60 * 1000).toISOString();
+module.exports = async function fetchGithubActivities(username,xDays) {
+    const xDaysAgo = new Date(new Date() - xDays * 24 * 60 * 60 * 1000).toISOString();
     const token = process.env.API_GITHUB_TOKEN;
 
     const query = `
     query { 
-      user(login: "antoprince001") { 
+      user(login: "${username}") { 
         bio
-        contributionsCollection(from : "2023-04-30T08:55:09.282Z"){
+        contributionsCollection(from : "${xDaysAgo}"){
                 totalCommitContributions
                 totalIssueContributions
                 totalPullRequestContributions	
@@ -18140,9 +18140,10 @@ module.exports = async function generatePrompt(
       githubInput,
       action,
       tone,
+      contributionPeriod,
       outputLength) {
         
-       let githubUsage = await fetchGithubActivities(username)
+       let githubUsage = await fetchGithubActivities(username,contributionPeriod)
        let prompt =  `
         Assume you are ${persona}. I am a github user who has
         ${githubUsage}. Your response should not be negative and discouraging. 
@@ -22623,7 +22624,7 @@ async function run() {
     const tone = core.getInput('tone');
     const outputLength = core.getInput('output-length');
     const contributionPeriod = core.getInput('contribution-period');
-    const username = "antoprince001";
+    const username = github.context.payload.repository.owner.login;
 
     let promptText = await generatePrompt(
       username,
@@ -22631,6 +22632,7 @@ async function run() {
       githubInput,
       action,
       tone,
+      contributionPeriod,
       outputLength
     );
 
