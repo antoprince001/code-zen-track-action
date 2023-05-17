@@ -27,15 +27,15 @@ function getQuery(githubInput, xDaysAgo){
     `
   }
 }
-module.exports = async function fetchGithubActivities(username) {
-    const xDaysAgo = new Date(new Date() - 5 * 24 * 60 * 60 * 1000).toISOString();
+module.exports = async function fetchGithubActivities(username,xDays) {
+    const xDaysAgo = new Date(new Date() - xDays * 24 * 60 * 60 * 1000).toISOString();
     const token = process.env.API_GITHUB_TOKEN;
 
     const query = `
     query { 
-      user(login: "antoprince001") { 
+      user(login: "${username}") { 
         bio
-        contributionsCollection(from : "2023-04-30T08:55:09.282Z"){
+        contributionsCollection(from : "${xDaysAgo}"){
                 totalCommitContributions
                 totalIssueContributions
                 totalPullRequestContributions	

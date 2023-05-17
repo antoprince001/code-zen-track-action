@@ -26,10 +26,10 @@ inputs:
     required: false
     default: '25'
 outputs:
+  prompt: # output will be available to future steps
+    description: 'The prompt'
   response: # output will be available to future steps
     description: 'The response'
-  test:
-    description: 'output'
 runs:
   using: 'node16'
   main: 'dist/index.js'
