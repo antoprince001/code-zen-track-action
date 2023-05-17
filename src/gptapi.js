@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Configuration, OpenAIApi } = require("openai");
 
+
 async function fetchGPTResponse(promptText) {
 
      const configuration = new Configuration({

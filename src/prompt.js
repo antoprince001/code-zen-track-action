@@ -9,7 +9,7 @@ module.exports = async function generatePrompt(
       contributionPeriod,
       outputLength) {
         
-       let githubUsage = await fetchGithubActivities(username,contributionPeriod)
+       let githubUsage = await fetchGithubActivities(username,githubInput,contributionPeriod)
        let prompt =  `
         Assume you are ${persona}. I am a github user who has
         ${githubUsage}. 
