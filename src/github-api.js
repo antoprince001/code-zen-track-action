@@ -130,14 +130,12 @@ function handleGithubPRsResponse(response) {
   return output;
 }
 
-// module.exports = 
-async function fetchGithubActivities(username,githubInput, xDays) {
+module.exports = async function fetchGithubActivities(username,githubInput, xDays) {
   const xDaysAgo = new Date(new Date() - xDays * 24 * 60 * 60 * 1000).toISOString();
   const token = process.env.API_GITHUB_TOKEN;
 
   const query = getQuery(username, githubInput, xDaysAgo)
 
-  console.log(query)
   const response = await axios({
     url: 'https://api.github.com/graphql',
     method: 'post',
@@ -149,7 +147,7 @@ async function fetchGithubActivities(username,githubInput, xDays) {
       query: query
     }
   });
-  
+
   switch (githubInput) {
     case "issues":
       return handleGithubIssuesResponse(response);
@@ -166,4 +164,4 @@ async function fetchGithubActivities(username,githubInput, xDays) {
   }
 }
 
-fetchGithubActivities("antoprince001","contributions", 2)
+// fetchGithubActivities("antoprince001","contributions", 2)
