@@ -13,7 +13,7 @@ async function run() {
     const tone = core.getInput('tone');
     const outputLength = core.getInput('output-length');
     const contributionPeriod = core.getInput('contribution-period');
-    const username = github.context.payload.repository.owner.login;
+    const username = github.context.payload.repository.owner.login; 
 
     let promptText = await generatePrompt(
       username,
