@@ -72,6 +72,14 @@ The action needs OpenAI API KEY and Github API Keyto be set in the environment t
             code-zen
 ```
 
+## Responses example
+
+<img width="1302" alt="Response issue 1" src="https://github.com/antoprince001/code-zen-track-action/assets/47826916/b99d31e7-f2a4-46d5-a904-cfb2ee066bf2">
+
+
+<img width="1293" alt="Response issue 2" src="https://github.com/antoprince001/code-zen-track-action/assets/47826916/43648509-a585-4684-bc2c-dcd3d149156a">
+
+
 ## Contributors
 Special mention to the contributors for this application 
 [Hemanth Kumar](https://github.com/Hemanthhari2000) & [Sharmila S](https://github.com/SharmilaS22)
