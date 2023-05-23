@@ -1,116 +1,77 @@
-# Create a JavaScript Action
+# Code Zen Track Action
 
-<p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
-</p>
+A Github action that responds with jokes, motivational quotes or any advice from your favourite character using GPT API leveraging the Github API to analyze the developer's GitHub history. This can be really helpful for developers to maintain their code zen by providing helpful suggestions to help them avoid burnout and frustration.
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
+It aims to prioritise mental health and provide tailored prompts and responses to empower developers in their journey towards better well-being, productivity, and overall satisfaction.
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.
+## Background
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+Developers tend to be highly invested in their work at times and forget to take occasional breaks or get anxious over a lot of things. It could be maybe if a ci/cd pipeline keeps failing or they feel their github contributions are not getting appreciated. Feeling under appreciated might make the devs lose their motivation. So similar to apps that remind devs to take a break, this github action can provide suggestions based on the user github history and be scheduled to trigger in periodic intervals and create an issue in the repo ! But instead of just receiving a generic recommendation, you can set the words to follow the pattern of your favorite character , set the tone and define whether you want some wise words or a joke or even just honest opinion 
 
-## Create an action from this template
+The actions takes the following inputs to engineer the right prompt and response
+  
+  #### Action Input
+  
+  - persona (x character from y show)
+  
+  - github-input (Type of data to be fetched from Github API (issues, repos, commits, PRs, contributions))
+  
+  - action (Judge, Joke, Quote, one liner, advice, reminder)
 
-Click the `Use this Template` and provide the new repo details for your action
+  - tone (Sarcastic, Jovial, Friendly)
 
-## Code in Main
+  - contribution-period (in days)
 
-Install the dependencies
+  - output-length (Set length of the output response in words less than 128)
+ 
+ #### Action Output
+  
+ - prompt
 
-```bash
-npm install
-```
+ - response
 
-Run the tests :heavy_check_mark:
-
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-...
-```
-
-## Change action.yml
-
-The action.yml defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-const core = require('@actions/core');
-...
-
-async function run() {
-  try {
-      ...
-  }
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Package for distribution
-
-GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
-
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
-
-Run prepare
-
-```bash
-npm run prepare
-```
-
-Since the packaged index.js is run from the dist folder.
-
-```bash
-git add dist
-```
-
-## Create a release branch
-
-Users shouldn't consume the action from master since that would be latest code and actions can break compatibility between major versions.
-
-Checkin to the v1 release branch
-
-```bash
-git checkout -b v1
-git commit -a -m "v1 release"
-```
-
-```bash
-git push origin v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket:
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
 ## Usage
 
-You can now consume the action by referencing the v1 branch
+The action needs OpenAI API KEY and Github API Keyto be set in the environment to run !
 
 ```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
+      - uses: antoprince001/code-zen-track-action@v1.1.0
+        id: prompt
+        with:
+          persona: "Batman DC Comics"
+          github-input: "contributions"
+          action: "judge"
+          tone: "helpful"
+          contribution-period: 15
+          output-length: 50
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          API_GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
+      
+      - name: Create an issue
+        uses: actions-ecosystem/action-create-issue@v1
+        with:
+          github_token: ${{ secrets.API_GITHUB_TOKEN }}
+          title: ✨Code Zen Tracking Prompt✨
+          body: |
+            We understand the significance of maintaining a state of code zen and fostering a healthy coding mindset.  😊✨ 
+            To support you in this endeavor, we've generated a personalized prompt using GPT (a language model) to help you track and enhance your code zen. 
+            🚀🎨
+            
+            #### GPT Response: ✨🙌
+            ${{ steps.prompt.outputs.response }}
+            
+            We encourage you to reflect on this response and consider incorporating it into your coding routine. Embracing code zen can lead to improved focus, creativity, and efficiency in your programming tasks.
+            
+            Remember to take regular breaks, practice self-care, and maintain a growth mindset throughout your coding journey. 
+            
+            Wishing you a harmonious coding experience 🌟💻✨
+
+          labels: |
+            code-zen
 ```
 
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+## Contributors
+Special mention to the contributors for this application 
+[Hemanth Kumar](https://github.com/Hemanthhari2000) & [Sharmila S](https://github.com/SharmilaS22)
