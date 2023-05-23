@@ -36,7 +36,12 @@ The actions takes the following inputs to engineer the right prompt and response
 The action needs OpenAI API KEY and Github API Keyto be set in the environment to run !
 
 ```yaml
-      - uses: antoprince001/code-zen-track-action@v1.1.0
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: antoprince001/code-zen-track-action@v1.0.2
         id: prompt
         with:
           persona: "Batman DC Comics"
