@@ -1,4 +1,4 @@
-name: 'GPT-Code-Zen-Action'
+name: 'code-zen-track-action'
 description: 'GPT responses based on Github Activity'
 inputs:
   persona:
