@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: test
     steps:
-      - uses: antoprince001/code-zen-track-action@v1.0.2
+      - uses: antoprince001/code-zen-track-action@v1.1.0
         id: prompt
         with:
           persona: "Batman DC Comics"
